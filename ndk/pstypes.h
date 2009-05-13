@@ -568,12 +568,18 @@ typedef struct _PEB
     UCHAR ReadImageFileExecOptions;
     UCHAR BeingDebugged;
 #if (NTDDI_VERSION >= NTDDI_LONGHORN)
-    struct
+    union
     {
-        UCHAR ImageUsesLargePages:1;
-        UCHAR IsProtectedProcess:1;
-        UCHAR IsLegacyProcess:1;
-        UCHAR SpareBits:5;
+        struct
+        {
+            UCHAR ImageUsesLargePages:1;
+            UCHAR IsProtectedProcess:1;
+            UCHAR IsLegacyProcess:1;
+            UCHAR IsImageDynamicallyRelocated:1;
+            UCHAR SkipPatchingUser32Forwarders:1;
+            UCHAR SpareBits:3;
+        };
+        UCHAR BitField;
     };
 #else
     BOOLEAN SpareBool;
@@ -588,7 +594,18 @@ typedef struct _PEB
     struct _RTL_CRITICAL_SECTION *FastPebLock;
     PVOID AltThunkSListPtr;
     PVOID IFEOKey;
-    ULONG Spare;
+    union
+    {
+        struct
+        {
+            ULONG ProcessInJob:1;
+            ULONG ProcessInitializing:1;
+            ULONG ProcessUsingVEH:1;
+            ULONG ProcessUsingVCH:1;
+            ULONG ReservedBits0:28;
+        };
+        ULONG CrossProcessFlags;
+    };
     union
     {
         PVOID* KernelCallbackTable;
@@ -596,6 +613,7 @@ typedef struct _PEB
     };
     ULONG SystemReserved[1];
     ULONG SpareUlong;
+    ULONG SparePebPtr0;
 #else
     PVOID FastPebLock;
     PPEBLOCKROUTINE FastPebLockRoutine;
@@ -604,13 +622,17 @@ typedef struct _PEB
     PVOID* KernelCallbackTable;
     PVOID EventLogSection;
     PVOID EventLog;
-#endif
     PPEB_FREE_BLOCK FreeList;
+#endif
     ULONG TlsExpansionCounter;
     PVOID TlsBitmap;
     ULONG TlsBitmapBits[0x2];
     PVOID ReadOnlySharedMemoryBase;
+#if (NTDDI_VERSION >= NTDDI_LONGHORN)
+    PVOID HotpatchInformation;
+#else
     PVOID ReadOnlySharedMemoryHeap;
+#endif
     PVOID* ReadOnlyStaticServerData;
     PVOID AnsiCodePageData;
     PVOID OemCodePageData;
@@ -1275,8 +1297,12 @@ typedef struct _EPROCESS
             ULONG NumaAware:1;
             ULONG ProtectedProcess:1;
             ULONG DefaultPagePriority:3;
-            ULONG ProcessDeleteSelf:1;
+            ULONG PrimaryTokenFrozen:1;
             ULONG ProcessVerifierTarget:1;
+            ULONG StackRandomizationDisabled:1;
+            ULONG Unused01:1;
+            ULONG Unused02:1;
+            ULONG CrossSectionCreate:1;
         };
         ULONG Flags2;
     };

@@ -19,9 +19,6 @@ Author:
 #ifndef _OBTYPES_H
 #define _OBTYPES_H
 
-#undef NTDDI_VERSION
-#define NTDDI_VERSION NTDDI_WS03SP1
-
 //
 // Dependencies
 //

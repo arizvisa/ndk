@@ -299,6 +299,16 @@ typedef enum _FILE_INFORMATION_CLASS
     FileIdFullDirectoryInformation,
     FileValidDataLengthInformation,
     FileShortNameInformation,
+    FileIoCompletionNotificationInformation,
+    FileIoStatusBlockRangeInformation,
+    FileIoPriorityHintInformation,
+    FileSfioReserveInformation,
+    FileSfioVolumeInformation,
+    FileHardLinkInformation,
+    FileProcessIdsUsingFileInformation,
+    FileNormalizedNameInformation,
+    FileNetworkPhysicalNameInformation,
+    FileIdGlobalTxDirectoryInformation,
     FileMaximumInformation
 } FILE_INFORMATION_CLASS, *PFILE_INFORMATION_CLASS;
 

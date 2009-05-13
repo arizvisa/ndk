@@ -304,18 +304,36 @@ typedef struct _SECTION_IMAGE_INFORMATION
     ULONG ZeroBits;
     ULONG MaximumStackSize;
     ULONG CommittedStackSize;
-    ULONG SubsystemType;
-    USHORT SubSystemMinorVersion;
-    USHORT SubSystemMajorVersion;
+    ULONG SubSystemType;
+    union
+    {
+        struct
+        {
+            USHORT SubSystemMinorVersion;
+            USHORT SubSystemMajorVersion;
+        };
+        ULONG SubSystemVersion;
+    };
     ULONG GpValue;
     USHORT ImageCharacteristics;
     USHORT DllChracteristics;
     USHORT Machine;
     UCHAR ImageContainsCode;
-    UCHAR Spare1;
+    union
+    {
+        struct
+        {
+            UCHAR ComPlusNativeReady:1;
+            UCHAR ComPlusILOnly:1;
+            UCHAR ImageDynamicallyRelocated:1;
+            UCHAR ImageMappedFlat:1;
+            UCHAR Reserved:4;
+        };
+        UCHAR ImageFlags;
+    };
     ULONG LoaderFlags;
-    ULONG ImageFileSIze;
-    ULONG Reserved[1];
+    ULONG ImageFileSize;
+    ULONG CheckSum;
 } SECTION_IMAGE_INFORMATION, *PSECTION_IMAGE_INFORMATION;
 
 #ifndef NTOS_MODE_USER

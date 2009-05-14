@@ -85,6 +85,19 @@ typedef enum _OBJECT_INFORMATION_CLASS
 
 #else
 
+#if (NTDDI_VERSION < NTDDI_VISTASP1)
+typedef enum _OBJECT_INFORMATION_CLASS
+{
+    ObjectBasicInformation,
+    ObjectNameInformation,
+    ObjectTypeInformation,
+    ObjectTypesInformation,
+    ObjectHandleFlagInformation,
+    ObjectSessionInformation,
+    MaxObjectInfoClass
+} OBJECT_INFORMATION_CLASS;
+#endif
+
 //
 // Object Flags
 //

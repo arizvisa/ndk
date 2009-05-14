@@ -1404,6 +1404,15 @@ RtlUpcaseUnicodeStringToOemString(
 NTSYSAPI
 NTSTATUS
 NTAPI
+RtlUpcaseUnicodeStringToAnsiString(
+    PANSI_STRING DestinationString,
+    PCUNICODE_STRING SourceString,
+    BOOLEAN AllocateDestinationString
+);
+
+NTSYSAPI
+NTSTATUS
+NTAPI
 RtlUpcaseUnicodeStringToCountedOemString(
     IN OUT POEM_STRING DestinationString,
     IN PCUNICODE_STRING SourceString,
@@ -2524,14 +2533,6 @@ DbgPrintEx(
     IN ...
 );
 
-ULONG
-NTAPI
-DbgPrompt(
-    IN PCCH Prompt,
-    OUT PCH Response,
-    IN ULONG MaximumResponseLength
-);
-
 VOID
 NTAPI
 DbgBreakPoint(
@@ -2557,7 +2558,7 @@ DbgUnLoadImageSymbols(
 //
 // Generic Table Functions
 //
-#if defined(NTOS_MODE_USER) || defined(_NTIFS_)
+#if defined(NTOS_MODE_USER) || !defined(_NTIFS_)
 PVOID
 NTAPI
 RtlInsertElementGenericTable(

@@ -133,12 +133,6 @@ KeAcquireInStackQueuedSpinLockRaiseToSynch(
     IN PKLOCK_QUEUE_HANDLE LockHandle
 );
 
-KIRQL
-FASTCALL
-KeAcquireSpinLockRaiseToSynch(
-    IN OUT PKSPIN_LOCK SpinLock
-);
-
 //
 // Interrupt Functions
 //
@@ -197,12 +191,6 @@ KeEnterKernelDebugger(
 BOOLEAN
 NTAPI
 KeIsExecutingDpc(
-    VOID
-);
-
-VOID
-NTAPI
-KeFlushQueuedDpcs(
     VOID
 );
 

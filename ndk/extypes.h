@@ -22,17 +22,17 @@ Author:
 //
 // Dependencies
 //
-#include <umtypes.h>
+#include <ndk/umtypes.h>
 #include <cfg.h>
 #if defined(_MSC_VER) && !defined(NTOS_MODE_USER)
 #include <ntimage.h>
 #endif
-#include <cmtypes.h>
-#include <ketypes.h>
-#include <potypes.h>
-#include <lpctypes.h>
+#include <ndk/cmtypes.h>
+#include <ndk/ketypes.h>
+#include <ndk/potypes.h>
+#include <ndk/lpctypes.h>
 #ifdef NTOS_MODE_USER
-#include <obtypes.h>
+#include <ndk/obtypes.h>
 #endif
 
 //

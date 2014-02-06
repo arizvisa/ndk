@@ -22,10 +22,10 @@ Author:
 //
 // Dependencies
 //
-#include <umtypes.h>
+#include <ndk/umtypes.h>
 #include <ntnls.h>
-#include <rtltypes.h>
-#include <extypes.h>
+#include <ndk/rtltypes.h>
+#include <ndk/extypes.h>
 #include "in6addr.h"
 #include "inaddr.h"
 

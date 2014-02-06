@@ -22,8 +22,8 @@ Author:
 //
 // Dependencies
 //
-#include <umtypes.h>
-#include <iotypes.h>
+#include <ndk/umtypes.h>
+#include <ndk/iotypes.h>
 
 //
 // I/O Functions

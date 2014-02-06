@@ -22,9 +22,9 @@ Author:
 //
 // Dependencies
 //
-#include <umtypes.h>
-#include <arch/mmtypes.h>
-#include <extypes.h>
+#include <ndk/umtypes.h>
+#include <ndk/arch/mmtypes.h>
+#include <ndk/extypes.h>
 
 //
 // Page-Rounding Macros

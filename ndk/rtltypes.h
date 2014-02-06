@@ -22,8 +22,8 @@ Author:
 //
 // Dependencies
 //
-#include <umtypes.h>
-#include <pstypes.h>
+#include <ndk/umtypes.h>
+#include <ndk/pstypes.h>
 
 //
 // Maximum Atom Length

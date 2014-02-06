@@ -22,9 +22,9 @@ Author:
 //
 // Dependencies
 //
-#include <umtypes.h>
+#include <ndk/umtypes.h>
 #ifndef NTOS_MODE_USER
-#include <extypes.h>
+#include <ndk/extypes.h>
 #endif
 
 #ifdef NTOS_MODE_USER

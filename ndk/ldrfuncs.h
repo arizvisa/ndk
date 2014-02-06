@@ -22,8 +22,8 @@ Author:
 //
 // Dependencies
 //
-#include <umtypes.h>
-#include <ldrtypes.h>
+#include <ndk/umtypes.h>
+#include <ndk/ldrtypes.h>
 #if defined(_MSC_VER) && !defined(NTOS_MODE_USER)
 #include <ntimage.h>
 #endif

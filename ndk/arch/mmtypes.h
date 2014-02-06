@@ -23,9 +23,9 @@ Author:
 // Include the right file for this architecture.
 //
 #if defined(_M_IX86) || defined(_M_AMD64)
-#include <i386/mmtypes.h>
+#include <ndk/i386/mmtypes.h>
 #elif defined(_M_PPC)
-#include <powerpc/mmtypes.h>
+#include <ndk/powerpc/mmtypes.h>
 #else
 #error "Unknown processor"
 #endif

@@ -22,8 +22,8 @@ Author:
 //
 // Dependencies
 //
-#include <umtypes.h>
-#include <ketypes.h>
+#include <ndk/umtypes.h>
+#include <ndk/ketypes.h>
 
 #ifndef NTOS_MODE_USER
 

@@ -23,9 +23,9 @@ Author:
 // Include the right file for this architecture.
 //
 #ifdef _M_IX86
-#include <i386/ketypes.h>
+#include <ndk/i386/ketypes.h>
 #elif defined(_M_PPC)
-#include <powerpc/ketypes.h>
+#include <ndk/powerpc/ketypes.h>
 #else
 #error "Unknown processor"
 #endif

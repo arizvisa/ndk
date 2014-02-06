@@ -22,7 +22,7 @@ Author:
 //
 // Dependencies
 //
-#include <umtypes.h>
+#include <ndk/umtypes.h>
 //#include <pstypes.h>
 
 //

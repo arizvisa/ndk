@@ -22,13 +22,13 @@ Author:
 //
 // Dependencies
 //
-#include <umtypes.h>
-#include <ldrtypes.h>
-#include <mmtypes.h>
-#include <obtypes.h>
+#include <ndk/umtypes.h>
+#include <ndk/ldrtypes.h>
+#include <ndk/mmtypes.h>
+#include <ndk/obtypes.h>
 #ifndef NTOS_MODE_USER
-#include <extypes.h>
-#include <setypes.h>
+#include <ndk/extypes.h>
+#include <ndk/setypes.h>
 #endif
 
 //

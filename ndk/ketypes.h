@@ -22,11 +22,11 @@ Author:
 //
 // Dependencies
 //
-#include <umtypes.h>
+#include <ndk/umtypes.h>
 #ifndef NTOS_MODE_USER
-#include <haltypes.h>
-#include <potypes.h>
-#include <ifssupp.h>
+#include <ndk/haltypes.h>
+#include <ndk/potypes.h>
+#include <ndk/ifssupp.h>
 #endif
 
 //
@@ -598,7 +598,7 @@ typedef struct _CACHE_DESCRIPTOR
 //
 // Architectural Types
 //
-#include <arch/ketypes.h>
+#include <ndk/arch/ketypes.h>
 
 //
 // Kernel Memory Node

@@ -21,8 +21,8 @@ Author:
 //
 // Dependencies
 //
-#include <umtypes.h>
-#include <ifssupp.h>
+#include <ndk/umtypes.h>
+#include <ndk/ifssupp.h>
 
 //
 // I/O Completion Access Rights

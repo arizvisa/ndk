@@ -37,54 +37,54 @@ Author:
 #include <stdio.h>          // C Standard Header
 #include <excpt.h>          // C Standard Header
 #include <stdarg.h>         // C Standard Header
-#include <umtypes.h>        // General Definitions
+#include <ndk/umtypes.h>        // General Definitions
 
 //
 // Type Headers
 //
-#include <cctypes.h>        // Cache Manager Types
-#include <cmtypes.h>        // Configuration Manager Types
-#include <dbgktypes.h>      // User-Mode Kernel Debugging Types
-#include <extypes.h>        // Executive Types
-#include <kdtypes.h>        // Kernel Debugger Types
-#include <ketypes.h>        // Kernel Types
-#include <haltypes.h>       // Hardware Abstraction Layer Types
-#include <ifssupp.h>        // IFS Support Header
-#include <iotypes.h>        // Input/Output Manager Types
-#include <ldrtypes.h>       // Loader Types
-#include <lpctypes.h>       // Local Procedure Call Types
-#include <mmtypes.h>        // Memory Manager Types
-#include <obtypes.h>        // Object Manager Types
-#include <potypes.h>        // Power Manager Types
-#include <pstypes.h>        // Process Manager Types
-#include <rtltypes.h>       // Runtime Library Types
-#include <setypes.h>        // Security Subsystem Types
+#include <ndk/cctypes.h>        // Cache Manager Types
+#include <ndk/cmtypes.h>        // Configuration Manager Types
+#include <ndk/dbgktypes.h>      // User-Mode Kernel Debugging Types
+#include <ndk/extypes.h>        // Executive Types
+#include <ndk/kdtypes.h>        // Kernel Debugger Types
+#include <ndk/ketypes.h>        // Kernel Types
+#include <ndk/haltypes.h>       // Hardware Abstraction Layer Types
+#include <ndk/ifssupp.h>        // IFS Support Header
+#include <ndk/iotypes.h>        // Input/Output Manager Types
+#include <ndk/ldrtypes.h>       // Loader Types
+#include <ndk/lpctypes.h>       // Local Procedure Call Types
+#include <ndk/mmtypes.h>        // Memory Manager Types
+#include <ndk/obtypes.h>        // Object Manager Types
+#include <ndk/potypes.h>        // Power Manager Types
+#include <ndk/pstypes.h>        // Process Manager Types
+#include <ndk/rtltypes.h>       // Runtime Library Types
+#include <ndk/setypes.h>        // Security Subsystem Types
 
 //
 // Function Headers
 //
-#include <cmfuncs.h>        // Configuration Manager Functions
-#include <dbgkfuncs.h>      // User-Mode Kernel Debugging Functions
-#include <kdfuncs.h>        // Kernel Debugger Functions
-#include <kefuncs.h>        // Kernel Functions
-#include <exfuncs.h>        // Executive Functions
-#include <halfuncs.h>       // Hardware Abstraction Layer Functions
-#include <iofuncs.h>        // Input/Output Manager Functions
-#include <inbvfuncs.h>      // Initialization Boot Video Functions
-#include <ldrfuncs.h>       // Loader Functions
-#include <lpcfuncs.h>       // Local Procedure Call Functions
-#include <mmfuncs.h>        // Memory Manager Functions
-#include <obfuncs.h>        // Object Manager Functions
-#include <pofuncs.h>        // Power Manager Functions
-#include <psfuncs.h>        // Process Manager Functions
-#include <rtlfuncs.h>       // Runtime Library Functions
-#include <sefuncs.h>        // Security Subsystem Functions
-#include <umfuncs.h>        // User-Mode NT Library Functions
+#include <ndk/cmfuncs.h>        // Configuration Manager Functions
+#include <ndk/dbgkfuncs.h>      // User-Mode Kernel Debugging Functions
+#include <ndk/kdfuncs.h>        // Kernel Debugger Functions
+#include <ndk/kefuncs.h>        // Kernel Functions
+#include <ndk/exfuncs.h>        // Executive Functions
+#include <ndk/halfuncs.h>       // Hardware Abstraction Layer Functions
+#include <ndk/iofuncs.h>        // Input/Output Manager Functions
+#include <ndk/inbvfuncs.h>      // Initialization Boot Video Functions
+#include <ndk/ldrfuncs.h>       // Loader Functions
+#include <ndk/lpcfuncs.h>       // Local Procedure Call Functions
+#include <ndk/mmfuncs.h>        // Memory Manager Functions
+#include <ndk/obfuncs.h>        // Object Manager Functions
+#include <ndk/pofuncs.h>        // Power Manager Functions
+#include <ndk/psfuncs.h>        // Process Manager Functions
+#include <ndk/rtlfuncs.h>       // Runtime Library Functions
+#include <ndk/sefuncs.h>        // Security Subsystem Functions
+#include <ndk/umfuncs.h>        // User-Mode NT Library Functions
 
 //
 // Assembly Support
 //
-#include <asm.h>            // Assembly Offsets
+#include <ndk/asm.h>            // Assembly Offsets
 
 #ifdef _MSC_VER
 #pragma warning(pop)

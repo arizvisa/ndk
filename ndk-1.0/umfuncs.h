@@ -22,8 +22,8 @@ Author:
 //
 // Dependencies
 //
-#include <ndk/umtypes.h>
-#include <ndk/dbgktypes.h>
+#include <ndk-1.0/umtypes.h>
+#include <ndk-1.0/dbgktypes.h>
 
 //
 // Don't force inclusion of csrss header, leave this opaque.

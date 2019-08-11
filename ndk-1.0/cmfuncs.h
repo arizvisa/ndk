@@ -22,8 +22,8 @@ Author:
 //
 // Dependencies
 //
-#include <ndk/umtypes.h>
-#include <ndk/cmtypes.h>
+#include <ndk-1.0/umtypes.h>
+#include <ndk-1.0/cmtypes.h>
 
 //
 // Native calls

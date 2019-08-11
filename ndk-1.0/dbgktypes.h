@@ -22,8 +22,8 @@ Author:
 //
 // Dependencies
 //
-#include <ndk/umtypes.h>
-#include <ndk/lpctypes.h>
+#include <ndk-1.0/umtypes.h>
+#include <ndk-1.0/lpctypes.h>
 
 //
 // Debug Object Access Masks

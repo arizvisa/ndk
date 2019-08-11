@@ -22,9 +22,9 @@ Author:
 //
 // Dependencies
 //
-#include <ndk/umtypes.h>
+#include <ndk-1.0/umtypes.h>
 #include <cfg.h>
-#include <ndk/iotypes.h>
+#include <ndk-1.0/iotypes.h>
 
 #define MAX_BUS_NAME 24
 

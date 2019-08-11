@@ -22,9 +22,9 @@ Author:
 //
 // Dependencies
 //
-#include <ndk/umtypes.h>
-#include <ndk/pstypes.h>
-#include <ndk/extypes.h>
+#include <ndk-1.0/umtypes.h>
+#include <ndk-1.0/pstypes.h>
+#include <ndk-1.0/extypes.h>
 
 //
 // Don't include WMI headers just for one define

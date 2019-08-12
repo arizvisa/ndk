@@ -1,0 +1,367 @@
+//
+//	OutputDebugStringW(szPrintBuf);
+//#if defined (CONSOLE_APP)
+//#if defined(CONSOLE_OUTPUT)
+//#error STATUS_NOT_IMPLEMENTED!
+//#elif defined(DBGVIEW_OUTPUT)
+//
+//	if (!pFormatString)
+//		return;
+//
+//	RtlSecureZeroMemory(szPrintBuf, sizeof(szPrintBuf));
+//
+//#pragma warning(push)
+//#pragma warning(disable:4995) ///name was marked as #pragma deprecated
+//	status = RtlStringValidateDestW(szPrintBuf, sizeof(szPrintBuf)/sizeof(WCHAR), NTSTRSAFE_MAX_CCH);
+//#pragma warning(pop)
+//	if(status){
+//		OutputDebugStringW(L"RtlStringValidateDestW error!");
+//		return;
+//	}
+//
+//	va_start(args, pFormatString);
+//#pragma warning(push)
+//#pragma warning(disable:4995) ///name was marked as #pragma deprecated
+//	status = RtlStringVPrintfWorkerW(szPrintBuf, sizeof(szPrintBuf) / sizeof(WCHAR), NULL, pFormatString, args);
+//#pragma warning(pop)
+//	va_end(args);
+//	if (status){
+//		OutputDebugStringW(L"RtlStringVPrintfWorkerW error!");
+//		return;
+//	}
+//
+//	OutputDebugStringW(szPrintBuf);
+//#else
+//#error With CONSOLE_APP, either CONSOLE_OUTPUT or DBGVIEW_OUTPUT must be defined!
+//#endif
+//
+//#elif defined (WIN32_APP)
+//#if defined(DBGVIEW_OUTPUT)
+//	
+//	if (!pFormatString)
+//		return;
+//
+//	RtlSecureZeroMemory(szPrintBuf, sizeof(szPrintBuf));
+//
+//#pragma warning(push)
+//#pragma warning(disable:4995) ///name was marked as #pragma deprecated
+//	status = RtlStringValidateDestW(szPrintBuf, sizeof(szPrintBuf)/sizeof(WCHAR), NTSTRSAFE_MAX_CCH);
+//#pragma warning(pop)
+//	if(status){
+//		OutputDebugStringW(L"RtlStringValidateDestW error!");
+//		return;
+//	}
+//
+//	va_start(args, pFormatString);
+//#pragma warning(push)
+//#pragma warning(disable:4995) ///name was marked as #pragma deprecated
+//	status = RtlStringVPrintfWorkerW(szPrintBuf, sizeof(szPrintBuf) / sizeof(WCHAR), NULL, pFormatString, args);
+//#pragma warning(pop)
+//	va_end(args);
+//	if (status){
+//		OutputDebugStringW(L"RtlStringVPrintfWorkerW error!");
+//		return;
+//	}
+//
+//	OutputDebugStringW(szPrintBuf);
+//#elif defined (HARDERROR_OUTPUT)
+//	ULONG harderrorResponse;
+//	ULONGLONG harderrorParams[4];
+//	UNICODE_STRING uPrintBuf;
+//	UNICODE_STRING uTitle;
+//	WCHAR szTitle[] = L"Bla,undso !!!!!";
+//
+//	if (!pFormatString)
+//		return;
+//
+//	RtlSecureZeroMemory(szPrintBuf, sizeof(szPrintBuf));
+//
+//#pragma warning(push)
+//#pragma warning(disable:4995) ///name was marked as #pragma deprecated
+//	status = RtlStringValidateDestW(szPrintBuf, sizeof(szPrintBuf) / sizeof(WCHAR), NTSTRSAFE_MAX_CCH);
+//#pragma warning(pop)
+//	if (status){
+//		NtRaiseHardError(status, 0, 0, NULL, 0, (PULONG)&status);
+//		return;
+//	}
+//
+//	va_start(args, pFormatString);
+//#pragma warning(push)
+//#pragma warning(disable:4995) ///name was marked as #pragma deprecated
+//	status = RtlStringVPrintfWorkerW(szPrintBuf, sizeof(szPrintBuf) / sizeof(WCHAR), NULL, pFormatString, args);
+//#pragma warning(pop)
+//	va_end(args);
+//	if (status){
+//		NtRaiseHardError(status, 0, 0, NULL, 0, (PULONG)&status);
+//		return;
+//	}
+//
+//	RtlInitUnicodeString(&uPrintBuf, szPrintBuf);
+//	RtlInitUnicodeString(&uTitle, szTitle);
+//
+//	harderrorParams[0] = (ULONGLONG)&uPrintBuf;
+//	harderrorParams[1] = (ULONGLONG)&uTitle;
+//	harderrorParams[2] = (ULONGLONG)((ULONG)OptionOk | (ULONG)MB_ICONINFORMATION | (ULONG)0 | (ULONG)MB_DEFBUTTON1);
+//	harderrorParams[3] = (ULONGLONG)INFINITE;
+//
+//	status = NtRaiseHardError(STATUS_SERVICE_NOTIFICATION, 4, 0x3, harderrorParams, 0, &harderrorResponse);
+//	if (status)
+//		NtRaiseHardError(status, 0, 0, NULL, 0, (PULONG)&status);
+//#else
+//#error With WIN32_APP, either DBGVIEW_OUTPUT or HARDERROR_OUTPUT must be defined!
+//#endif
+//
+//#elif defined (BOOT_APP)
+//#if defined (BOOTSCR_OUTPUT)
+//	UNICODE_STRING uPrintBuf;
+//
+//	if (!pFormatString)
+//		return;
+//
+//	RtlSecureZeroMemory(szPrintBuf, sizeof(szPrintBuf));
+//
+//#pragma warning(push)
+//#pragma warning(disable:4995) ///name was marked as #pragma deprecated
+//	status = RtlStringValidateDestW(szPrintBuf, sizeof(szPrintBuf) / sizeof(WCHAR), NTSTRSAFE_MAX_CCH);
+//#pragma warning(pop)
+//	if (status){
+//		RtlInitUnicodeString(&uPrintBuf, L"RtlStringCbPrintfW error!");
+//		NtDisplayString(&uPrintBuf);
+//		return;
+//	}
+//	
+//	va_start(args, pFormatString);
+//#pragma warning(push)
+//#pragma warning(disable:4995) ///name was marked as #pragma deprecated
+//	status = RtlStringVPrintfWorkerW(szPrintBuf, sizeof(szPrintBuf) / sizeof(WCHAR), NULL, pFormatString, args);
+//#pragma warning(pop)
+//	va_end(args);
+//	if (status){
+//		RtlInitUnicodeString(&uPrintBuf, L"RtlStringVPrintfWorkerW error!");
+//		NtDisplayString(&uPrintBuf);
+//		return;
+//	}
+//
+//	RtlInitUnicodeString(&uPrintBuf, szPrintBuf);
+//	NtDisplayString(&uPrintBuf);
+//#elif defined (HARDERROR_OUTPUT)
+//	ULONG harderrorResponse;
+//	ULONGLONG harderrorParams[4];
+//	UNICODE_STRING uPrintBuf;
+//	UNICODE_STRING uTitle;
+//	WCHAR szTitle[] = L"Bla,undso !!!!!";
+//
+//	if (!pFormatString)
+//		return;
+//
+//	RtlSecureZeroMemory(szPrintBuf, sizeof(szPrintBuf));
+//
+//#pragma warning(push)
+//#pragma warning(disable:4995) ///name was marked as #pragma deprecated
+//	status = RtlStringValidateDestW(szPrintBuf, sizeof(szPrintBuf) / sizeof(WCHAR), NTSTRSAFE_MAX_CCH);
+//#pragma warning(pop)
+//	if (status){
+//		NtRaiseHardError(status, 0, 0, NULL, 0, (PULONG)&status);
+//		return;
+//	}
+//
+//	va_start(args, pFormatString);
+//#pragma warning(push)
+//#pragma warning(disable:4995) ///name was marked as #pragma deprecated
+//	status = RtlStringVPrintfWorkerW(szPrintBuf, sizeof(szPrintBuf) / sizeof(WCHAR), NULL, pFormatString, args);
+//#pragma warning(pop)
+//	va_end(args);
+//	if (status){
+//		NtRaiseHardError(status, 0, 0, NULL, 0, (PULONG)&status);
+//		return;
+//	}
+//
+//	RtlInitUnicodeString(&uPrintBuf, szPrintBuf);
+//	RtlInitUnicodeString(&uTitle, szTitle);
+//	
+//	harderrorParams[0] = (ULONGLONG)&uPrintBuf;
+//	harderrorParams[1] = (ULONGLONG)&uTitle;
+//	harderrorParams[2] = (ULONGLONG)((ULONG)OptionOk | (ULONG)MB_ICONINFORMATION | (ULONG)0 | (ULONG)MB_DEFBUTTON1);
+//	harderrorParams[3] = (ULONGLONG)INFINITE;
+//
+//	status = NtRaiseHardError(STATUS_SERVICE_NOTIFICATION, 4, 0x3, harderrorParams, 0, &harderrorResponse);
+//	if(status)
+//		NtRaiseHardError(status, 0, 0, NULL, 0, (PULONG)&status);
+//#else
+//#error With BOOT_APP, either BOOTSCR_OUTPUT or HARDERROR_OUTPUT must be defined!
+//#endif
+//
+//#else
+//#error Either CONSOLE_APP, WIN32_APP or BOOT_APP must be defined!
+//#endif
+
+//WCHAR szDebugEnv[] = L"DebugOutput";
+//WCHAR* pBlahh = L"DebugOutput";
+//WCHAR szOutputKeyPath[MAX_PATH];	///This buffer is sufficient since in this special case the key path cannot be much longer than the SID name.
+///Longest element is the SID name (e.g. S-1-5-21-1481281698-1014932710-522500205-1002).
+///It does NOT depend on the current user's real account name.
+//szValueName[0] = 'a'(*(PUCHAR)pLineNum);
+//szValueName[1] = *((PUCHAR)pLineNum +1);
+//
+//ZwOpenKey()
+//pBlah[4] = 3;
+//pBlahh[2] = 0x50;
+
+//NTSTATUS dumpEatEntriesToDefFile(PVOID pEatEntryList, ULONGLONG listBufferSize, PUCHAR pModuleName){
+//	OBJECT_ATTRIBUTES defFileAttr;
+//	UNICODE_STRING uDefFileName;
+//	IO_STATUS_BLOCK ioSb;
+//
+//	NTSTATUS status, fatalStatus = STATUS_CLUSTER_NETINTERFACE_EXISTS;
+//
+//	PCHAR pDefPreamble = NULL;
+//	///Keep it simple. We can't allocate less than 4 kB using NtXxx funcs anyway,
+//	///so just allocate 4 kB although we never will need that much.
+//	ULONGLONG defPreambleSize = PAGE_SIZE;
+//	HANDLE hDefFile = NULL;
+//	HANDLE hParentDir = NULL;
+//	///Quite some ugly hacking...
+//	//char szDefPreamblePart[] = { 0x0D, 0x0A, 0x0D, 0x0A, 'E', 'X', 'P', 'O', 'R', 'T', 'S', 0x0D, 0x0A, 0x0 };
+//
+//	//status = NtAllocateVirtualMemory(INVALID_HANDLE_VALUE, &pDefPreamble, 0, &defPreambleSize, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+//	//if (status)
+//	//	return status;
+//
+//	//status = RtlStringCbPrintfA(pDefPreamble, defPreambleSize, "LIBRARY %s%s", pModuleName, szDefPreamblePart);
+//	//if (status){
+//	//	fatalStatus = NtFreeVirtualMemory(INVALID_HANDLE_VALUE, &pDefPreamble, &defPreambleSize, MEM_RELEASE);
+//	//	if (fatalStatus)
+//	//		mydie(status, fatalStatus);
+//
+//	//	return status;
+//	//}
+//
+//	//status = RtlStringCbLengthA(pDefPreamble, defPreambleSize, &defPreambleSize);
+//	//if (status){
+//	//	fatalStatus = NtFreeVirtualMemory(INVALID_HANDLE_VALUE, &pDefPreamble, &defPreambleSize, MEM_RELEASE);
+//	//	if (fatalStatus)
+//	//		mydie(status, fatalStatus);
+//
+//	//	return status;
+//	//}
+//	//status = NtQueryInformationProcess()
+//	PUNICODE_STRING pFileName = &((PLDR_DATA_TABLE_ENTRY)(NtCurrentPeb()->Ldr->InLoadOrderModuleList.Flink))->FullDllName;
+//	pFileName->Buffer[pFileName->LengthInBytes / sizeof(WCHAR) - 2] = L'q';
+//	//hParentDir = NtCurrentPeb()->ProcessParameters->CurrentDirectory.Handle;
+//	//RTL_USER_PROCESS_PARAMETERS bla;
+//	//bla.CurrentDirectories[0].
+//	RtlInitUnicodeString(&uDefFileName, L"\\Users\\exports.def");
+//	InitializeObjectAttributes(&defFileAttr, &uDefFileName, OBJ_CASE_INSENSITIVE, NULL, NULL);
+//	status = NtCreateFile(&hDefFile, FILE_ALL_ACCESS | SYNCHRONIZE, &defFileAttr, &ioSb, NULL, FILE_ATTRIBUTE_NORMAL, FILE_SHARE_READ, FILE_SUPERSEDE, FILE_SYNCHRONOUS_IO_NONALERT | FILE_NON_DIRECTORY_FILE, NULL, 0);
+//	if (status){
+//		EXCEPTION_RECORD exRec;
+//		CONTEXT ctx;
+//		RtlSecureZeroMemory(&exRec, sizeof(EXCEPTION_RECORD));
+//		RtlSecureZeroMemory(&ctx, sizeof(CONTEXT));
+//		exRec.ExceptionCode = (ULONG)status;
+//		exRec.ExceptionAddress = (PVOID)pFileName->Buffer;
+//		NtRaiseException(&exRec, &ctx, TRUE);
+//	}
+//	pDefPreamble = (PCHAR)pEatEntryList;
+//	status = NtWriteFile(hDefFile, NULL, NULL, NULL, &ioSb, pDefPreamble, (ULONG)listBufferSize, NULL, NULL);
+//	if (status){
+//		EXCEPTION_RECORD exRec;
+//		CONTEXT ctx;
+//		RtlSecureZeroMemory(&exRec, sizeof(EXCEPTION_RECORD));
+//		RtlSecureZeroMemory(&ctx, sizeof(CONTEXT));
+//		exRec.ExceptionCode = (ULONG)status;
+//		exRec.ExceptionAddress = (PVOID)209;
+//		NtRaiseException(&exRec, &ctx, TRUE);
+//	}
+//
+//	NtClose(hDefFile);
+//	//if (!status)
+//	//	status = NtWriteFile(hDefFile, NULL, NULL, NULL, &ioSb, pEatEntryList, (ULONG)listBufferSize, NULL, NULL);
+//
+//	//fatalStatus = NtClose(hDefFile);
+//	//if (fatalStatus)
+//	//	mydie(status, fatalStatus);
+//
+//	//fatalStatus = NtFreeVirtualMemory(INVALID_HANDLE_VALUE, &pDefPreamble, &defPreambleSize, MEM_RELEASE);
+//	//if (fatalStatus)
+//	//	mydie(status, fatalStatus);
+//
+//	//return status;
+//	return STATUS_SUCCESS;
+//}
+
+//#if !defined(BOOT_APP)
+//extern void __cdecl __va_start(va_list *, ...);
+//#define my_va_start(ap, x) (__va_start(&ap, x))
+//typedef int(*P_VSNPRINTF_S)(char *buffer, unsigned long long sizeOfBuffer, unsigned long long count, const char *format, va_list argptr);
+//static P_VSNPRINTF_S sg_fpVsnprintf_s;
+//
+//static void DebugPrint2A(const char* pFormatstring, ...){	///LEGACY!!! Use myWPrintf in new designs!
+//	void* hMod = (void*)0;
+//	char pBuf[1024];
+//	if (!pFormatstring)
+//		return;
+//
+//	pBuf[sizeof(pBuf) - 1] = 0;
+//	pBuf[sizeof(pBuf) - 2] = 0;
+//	//RtlZeroMemory(pBuf, sizeof(pBuf));
+//	//SecureZeroMemory()
+//
+//	if (!sg_fpVsnprintf_s){
+//		hMod = LoadLibraryA("msvcrt.dll");
+//		sg_fpVsnprintf_s = (P_VSNPRINTF_S)GetProcAddress(hMod, "_vsnprintf_s");
+//		if (!sg_fpVsnprintf_s)
+//			return;
+//	}
+//
+//	va_list args;
+//	my_va_start(args, pFormatstring);
+//
+//	sg_fpVsnprintf_s(pBuf, sizeof(pBuf), (unsigned long long)(-1), pFormatstring, args); // C4996
+//	OutputDebugStringA(pBuf);
+//}
+//#endif ///!BOOT_APP
+//#elif defined(BOOT_APP)
+//extern void __cdecl __va_start(va_list *, ...);
+//#define my_va_start(ap, x) (__va_start(&ap, x))
+//typedef int(*P_VSNPRINTF_S)(char *buffer, unsigned long long sizeOfBuffer, unsigned long long count, const char *format, va_list argptr);
+//static P_VSNPRINTF_S sg_fpVsnprintf_s;
+
+//	if (!RtlCheckRegistryKey(rootKey, szOutputKeyPath)) {
+//		szOutputKeyPath[sizeof(szOutputKeyPath) / sizeof(WCHAR) - 2] = L'A' + 1;
+//		szOutputKeyPath[sizeof(szOutputKeyPath) / sizeof(WCHAR) - 1] = 0x0;
+//		if (!RtlCheckRegistryKey(rootKey, szOutputKeyPath)) {
+//			szOutputKeyPath[sizeof(szOutputKeyPath) / sizeof(WCHAR) - 2] = L'A' + 2;
+//			szOutputKeyPath[sizeof(szOutputKeyPath) / sizeof(WCHAR) - 1] = 0x0;
+//		}
+//	}
+
+
+//}
+
+
+//		szOutputKeyPath[]
+//	for (USHORT i = 0; i < 26; i++) {
+//		szValueName[2] = L'A' + (i) % 26;
+//		szValueName[1] = L'B' + (i) / 26;
+//		szValueName[0] = L'C' + (i) / (26 * 26);
+//		szValueName[sizeof(szValueName) / sizeof(WCHAR) - 1] = 0x0;
+//		status = RtlDeleteRegistryValue(rootKey, L"DebugOutput", szValueName);
+//		if (status) {
+//			RtlWriteRegistryValue(rootKey, L"DebugOutput", NULL, REG_BINARY, &status, sizeof(LONG));
+//			return;
+//		}
+//	}
+//	RtlCheckRegistryKey()
+//}
+//RtlDeleteK
+//RtlWriteRegistryValue(rootKey, L"DebugOutput", L"ab", REG_SZ, szPrintBuf, sizeof(szPrintBuf));
+//RtlWriteRegistryValue(rootKey, L"DebugOutput", L"ac", REG_SZ, szPrintBuf, sizeof(szPrintBuf));
+//#pragma warning(push)
+//#pragma warning(disable:4995) ///name was marked as #pragma deprecated
+//	status = RtlStringValidateDestW(szPrintBuf, sizeof(szPrintBuf)/sizeof(WCHAR), NTSTRSAFE_MAX_CCH);
+//#pragma warning(pop)
+//	if(status){
+//		RtlWriteRegistryValue(relativeTo, szOutputKeyPath, NULL, REG_SZ, szValidateErrorString, sizeof(szValidateErrorString));
+//		return;
+//	}

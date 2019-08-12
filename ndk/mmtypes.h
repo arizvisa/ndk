@@ -1064,14 +1064,20 @@ struct _POOL_DESCRIPTOR {
 
 struct _POOL_FREE_CHUNK {
     struct _POOL_HEADER Header;
-    LIST_ENTRY ListHead;
+    LIST_ENTRY ListEntry;
+    BYTE Data[];
+};
+
+struct _POOL_PENDING_CHUNK {
+    struct _POOL_HEADER Header;
+    SLIST_ENTRY ListEntry;
     BYTE Data[];
 };
 
 struct _POOL_CHUNK {
     struct _POOL_HEADER header;
     BYTE Data[];
-}
+};
 
 #ifdef __cplusplus
 extern "C" {

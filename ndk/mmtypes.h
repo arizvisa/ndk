@@ -1068,6 +1068,11 @@ struct _POOL_FREE_CHUNK {
     BYTE Data[];
 };
 
+struct _POOL_CHUNK {
+    struct _POOL_HEADER header;
+    BYTE Data[];
+}
+
 #ifdef __cplusplus
 extern "C" {
 #endif

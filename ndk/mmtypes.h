@@ -95,11 +95,8 @@ extern "C" {
 // Section Flags for NtCreateSection
 //
 #define SEC_NO_CHANGE                                       0x400000
-#define SEC_FILE                                            0x800000
 #define SEC_IMAGE                                           0x1000000
 #define SEC_PROTECTED_IMAGE                                 0x2000000
-#define SEC_RESERVE                                         0x4000000
-#define SEC_COMMIT                                          0x8000000
 #define SEC_NOCACHE                                         0x10000000
 #define SEC_WRITECOMBINE                                    0x40000000
 #define SEC_LARGE_PAGES                                     0x80000000
@@ -171,6 +168,7 @@ typedef enum _PP_NPAGED_LOOKASIDE_NUMBER
 //
 // Memory Information Classes for NtQueryVirtualMemory
 //
+#if 0
 typedef enum _MEMORY_INFORMATION_CLASS
 {
     MemoryBasicInformation,
@@ -179,6 +177,7 @@ typedef enum _MEMORY_INFORMATION_CLASS
     MemoryBasicVlmInformation,
     MemoryWorkingSetExList
 } MEMORY_INFORMATION_CLASS;
+#endif
 
 //
 // Section Information Clasess for NtQuerySection
@@ -950,20 +949,6 @@ typedef struct _MMSUPPORT
     PVOID AccessLog;
 #endif
 } MMSUPPORT, *PMMSUPPORT;
-
-//
-// Memory Information Types
-//
-typedef struct _MEMORY_BASIC_INFORMATION
-{
-    PVOID BaseAddress;
-    PVOID AllocationBase;
-    ULONG AllocationProtect;
-    SIZE_T RegionSize;
-    ULONG State;
-    ULONG Protect;
-    ULONG Type;
-} MEMORY_BASIC_INFORMATION,*PMEMORY_BASIC_INFORMATION;
 
 //
 // Driver Verifier Data

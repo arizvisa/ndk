@@ -85,12 +85,6 @@ extern POBJECT_TYPE NTSYSAPI IoDriverObjectType;
 #define FILE_PIPE_SERVER_END                    0x00000001
 
 //
-// NtCreateFile Attributes
-//
-#define FILE_ATTRIBUTE_VALID_FLAGS              0x00007fb7
-#define FILE_ATTRIBUTE_VALID_SET_FLAGS          0x000031a7
-
-//
 // NtCreateFile OpenType Flags
 //
 #define FILE_SUPERSEDE                          0x00000000

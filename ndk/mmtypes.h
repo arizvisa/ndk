@@ -22,6 +22,9 @@ Author:
 //
 // Dependencies
 //
+#include <ntifs.h>
+#include <ntintsafe.h>
+
 #include <ndk/umtypes.h>
 #include <ndk/arch/mmtypes.h>
 #include <ndk/extypes.h>
@@ -1005,6 +1008,80 @@ typedef struct _DRIVER_SPECIFIED_VERIFIER_THUNKS
     struct _LDR_DATA_TABLE_ENTRY *DataTableEntry;
     ULONG NumberOfThunks;
 } DRIVER_SPECIFIED_VERIFIER_THUNKS, *PDRIVER_SPECIFIED_VERIFIER_THUNKS;
+
+//
+// Kernel Pool Structures (XXX: These are not versioned correctly)
+//
+
+#ifdef _WIN64
+    #define POOL_BLOCK_SIZE 16
+#else
+    #define POOL_BLOCK_SIZE 8
+#endif
+#define POOL_LISTS_PER_PAGE (PAGE_SIZE / POOL_BLOCK_SIZE)
+
+struct _POOL_HEADER {
+#if defined(_M_IX86)
+     union {
+          ULONG PreviousSize:9;
+          struct {
+               ULONG PoolIndex:7;
+               ULONG BlockSize:9;
+               ULONG PoolType:7;
+          };
+          ULONG Ulong1;
+     };
+     union {
+          ULONG PoolTag;
+          struct {
+               WORD AllocatorBackTraceIndex;
+               WORD PoolTagHash;
+          };
+     };
+#elif defined(_M_X64) || defined(_M_AMD64)
+    union {
+        struct {
+            ULONG32 PreviousSize:8;
+            ULONG32 PoolIndex:8;
+            ULONG32 BlockSize:8;
+            ULONG32 PoolType:8;
+        };
+        ULONG32 Ulong1;
+    };
+    ULONG32 PoolTag;
+    union {
+        struct _EPROCESS* ProcessBilled;
+        struct {
+            UINT16 AllocatorBackTraceIndex;
+            UINT16 PoolTagHash;
+            UINT8 _PADDING0_[0x4];
+        };
+    };
+#endif
+};
+
+struct _POOL_DESCRIPTOR {
+     POOL_TYPE PoolType;
+     ULONG PoolIndex;
+     LONG RunningAllocs;
+     LONG RunningDeAllocs;
+     LONG TotalPages;
+     LONG TotalBigPages;
+     ULONG Threshold;
+     PVOID LockAddress;
+     VOID** PendingFrees;
+     LONG ThreadsProcessingDeferrals;
+     LONG PendingFreeDepth;
+     ULONG TotalBytes;
+     ULONG Spare0;
+     LIST_ENTRY ListHeads[POOL_LISTS_PER_PAGE];
+};
+
+struct _POOL_FREE_CHUNK {
+    struct _POOL_HEADER Header;
+    LIST_ENTRY ListHead;
+    BYTE Data[];
+};
 
 #ifdef __cplusplus
 extern "C" {

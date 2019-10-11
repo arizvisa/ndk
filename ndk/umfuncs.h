@@ -13,6 +13,7 @@ Abstract:
 Author:
 
     Alex Ionescu (alexi@tinykrnl.org) - Updated - 27-Feb-2006
+    Ali Rizvi-Santiago (arizvisa@gmail.com) - Updated - 11-Oct-2019
 
 --*/
 #ifdef NTOS_MODE_USER
@@ -377,12 +378,63 @@ LdrQueryImageFileKeyOption(
 //
 //typedef PUSHORT PRTL_ATOM;
 //
-typedef PVOID PALPC_CONTEXT_ATTR;
-typedef PVOID PALPC_INFO;
-typedef PVOID PALPC_MESSAGE_ATTRIBUTES;
-typedef PVOID PALPC_MESSAGE_VIEW;
-typedef PVOID PALPC_PORT_ATTRIBUTES;
-typedef PVOID PALPC_SECURITY_ATTR;
+
+typedef struct _ALPC_CONTEXT_ATTRIBUTES
+{
+    PVOID PortContext;
+    PVOID MessageContext;
+    ULONG SequenceNumber;
+    ULONG MessageID;
+    ULONG CallbackID;
+} ALPC_CONTEXT_ATTRIBUTES, *PALPC_CONTEXT_ATTRIBUTES;
+
+typedef struct _ALPC_DATA_VIEW
+{
+    ULONG Flags;
+    HANDLE SectionHandle;
+    PVOID ViewBase;
+    SIZE_T ViewSize;
+} ALPC_DATA_VIEW, *PALPC_DATA_VIEW;
+
+typedef struct _ALPC_MESSAGE_ATTRIBUTES
+{
+    ULONG AllocatedAttributes;
+    ULONG ValidAttributes;
+} ALPC_MESSAGE_ATTRIBUTES, *PALPC_MESSAGE_ATTRIBUTES;
+
+typedef struct _ALPC_PORT_ATTRIBUTES
+{
+    ULONG Flags;
+    SECURITY_QUALITY_OF_SERVICE SecurityQos;
+    SIZE_T MaxMessageLength;
+    SIZE_T MemoryBandwidth;
+    SIZE_T MaxPoolUsage;
+    SIZE_T MaxSectionSize;
+    SIZE_T MaxViewSize;
+    SIZE_T MaxTotalSectionSize;
+    ULONG DupObjectTypes;
+#ifdef _WIN64
+    ULONG Reserved;
+#endif
+} ALPC_PORT_ATTRIBUTES, *PALPC_PORT_ATTRIBUTES;
+
+typedef struct _ALPC_HANDLE_ATTRIBUTES
+{
+    ULONG Flags;
+    HANDLE Handle;
+    ULONG ObjectType;
+    ACCESS_MASK DesiredAccess;
+} ALPC_HANDLE_ATTRIBUTES, *PALPC_HANDLE_ATTRIBUTES;
+
+typedef struct _ALPC_SECURITY_ATTRIBUTES
+{
+    ULONG Flags;
+    PSECURITY_QUALITY_OF_SERVICE SecurityQos;
+    HANDLE ContextHandle;
+    ULONG Reserved1;
+    ULONG Reserved2;
+} ALPC_SECURITY_ATTRIBUTES, *PALPC_SECURITY_ATTRIBUTES;
+
 //typedef PVOID PBOOT_ENTRY;
 //typedef PVOID PCONTEXT;
 //typedef PVOID PDRIVER_ENTRY;
@@ -429,6 +481,10 @@ typedef struct _LPC_MESSAGE {
 	ULONG                   CallbackId;
 
 } LPC_MESSAGE, *PLPC_MESSAGE;
+
+typedef struct _CHANNEL_MESSAGE {
+    ULONG unknown;
+} CHANNEL_MESSAGE, *PCHANNEL_MESSAGE;
 
 //
 //// Alternate name for LPC_MESSAGE
@@ -1574,7 +1630,7 @@ NTAPI
 NtAlpcCancelMessage(
 IN HANDLE PortHandle,
 IN ULONG Flags,
-IN PALPC_CONTEXT_ATTR MessageContext
+IN PALPC_CONTEXT_ATTRIBUTES MessageContext
 );
 
 //[LPC]
@@ -1600,7 +1656,7 @@ NTAPI
 NtAlpcCreatePort(
 OUT PHANDLE PortHandle,
 IN POBJECT_ATTRIBUTES ObjectAttributes,
-IN OUT PALPC_INFO PortInformation OPTIONAL
+IN OUT PALPC_PORT_ATTRIBUTES PortAttributes OPTIONAL
 );
 
 //[LPC]
@@ -1631,7 +1687,7 @@ NTAPI
 NtAlpcCreateSectionView(
 HANDLE PortHandle,
 ULONG FlagUnusedMustbeZero,
-PALPC_MESSAGE_VIEW pMessageBuffer
+PALPC_DATA_VIEW ViewAttributes
 );
 
 //[LPC]
@@ -1640,7 +1696,7 @@ NTAPI
 NtAlpcCreateSecurityContext(
 __in HANDLE PortHandle,
 __in ULONG Flags,
-__inout PALPC_SECURITY_ATTR SecurityAttribute
+__inout PALPC_SECURITY_ATTRIBUTES SecurityAttribute
 );
 
 //[LPC]
@@ -1858,7 +1914,7 @@ NTSTATUS
 NTAPI
 NtListenChannel(
 IN HANDLE Handle,
-OUT PVOID Message
+OUT PCHANNEL_MESSAGE Message
 );
 
 //[LPC]
@@ -1874,7 +1930,7 @@ NTSTATUS
 NTAPI
 NtOpenChannel(
 OUT PHANDLE ChannelHandle,
-IN PUNICODE_STRING ChannelName
+IN POBJECT_ATTRIBUTES ObjectAttributes
 );
 
 //[LPC]
@@ -1949,7 +2005,7 @@ NTAPI
 NtReplyWaitSendChannel(
 IN HANDLE ChannelHandle,
 IN PVOID ReplyMessage OPTIONAL,
-OUT PVOID Message
+OUT PCHANNEL_MESSAGE Message
 );
 
 //[LPC]
@@ -1990,7 +2046,7 @@ NTAPI
 NtSendWaitReplyChannel(
 IN HANDLE ChannelHandle,
 IN PVOID RequestMessage,
-OUT PVOID ReplyMessage,
+OUT PCHANNEL_MESSAGE ReplyMessage,
 IN PLARGE_INTEGER Timeout
 );
 
